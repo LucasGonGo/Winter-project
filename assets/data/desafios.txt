@@ -1,0 +1,12 @@
+Encontre o animal que adora nadar e faz 'quack';duck.png
+Qual é o bicho com o bico chato e pés de nadadeira?;duck.png
+Descubra quem vive no lago e sempre está bicando tudo;duck.png
+Procure quem brilha no céu mesmo sem fazer barulho;star.png
+Qual a figura tem cinco pontas e vive entre planetas?;star.png
+Encontre a forma que costuma ser desejada à noite;star.png
+Qual é o verde saltitante que adora pular na lama?;frog.png
+Descubra quem coaxaaa e mora na beira do brejo;frog.png
+Encontre o bicho que tem a língua comprida e olhos esbugalhados;frog.png
+Procure pela planta que brilha como o sol;flower.png
+Qual é a flor que sorri em amarelo no campo?;flower.png
+Encontre a flor que parece sorrir com pétalas douradas;flower.png

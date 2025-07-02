@@ -14,7 +14,7 @@ while True:
     if estado == 'menu':
         rodando_menu = True
         while rodando_menu:
-            screen.fill((22, 15, 41))
+            screen.fill((250, 250, 255))
             botoes = menu.mostrar_menu(screen)
 
             for event in pygame.event.get():

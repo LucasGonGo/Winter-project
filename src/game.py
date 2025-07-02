@@ -1,6 +1,7 @@
 import os
 import random
 import pygame
+import math
 from card import Carta
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -10,7 +11,7 @@ DATA_DIR = os.path.join(ASSET_DIR, 'data')
 SOUND_DIR = os.path.join(ASSET_DIR, 'sounds')
 
 def desenhar_botao_voltar(screen, font):
-    botao_cor = (200, 50, 50)
+    botao_cor = (200, 50, 50) 
     botao_cor_hover = (255, 80, 80)
     texto_cor = (255, 255, 255)
 
@@ -56,8 +57,15 @@ def carregar_desafios():
                     print(f"Linha ignorada por formato incorreto: {linha}")
     return desafios
 
+MAX_COLS = 2
+MAX_CARDS = 4
+
 def criar_cartas(nomes_cartas):
-    colunas = len(nomes_cartas) // 2 + len(nomes_cartas) % 2
+    total = min(len(nomes_cartas), MAX_CARDS)
+
+    colunas = min(MAX_COLS, total)
+    linhas = math.ceil(total/colunas)
+    
     largura_grade = colunas * tam_carta[0] + (colunas - 1) * espaco
     altura_grade = linhas * tam_carta[1] + (linhas - 1) * espaco
 
@@ -65,94 +73,99 @@ def criar_cartas(nomes_cartas):
     start_y = (720 - altura_grade) // 2
 
     cartas = []
+
     idx = 0
 
-    for linha in range(linhas):
-        for coluna in range(colunas):
-            if idx >= len(nomes_cartas):
-                break
-            nome = nomes_cartas[idx]
-            img_path = os.path.join(IMG_DIR, nome)
-            imagem = pygame.image.load(img_path).convert_alpha()
+    for idx, nome in enumerate(nomes_cartas[:total]):
+        coluna = idx % colunas
+        linha  = idx // colunas
 
-            x = start_x + coluna * (tam_carta[0] + espaco)
-            y = start_y + linha * (tam_carta[1] + espaco)
+        img_path = os.path.join(IMG_DIR, nome)
+        imagem   = pygame.image.load(img_path).convert_alpha()
 
-            carta = Carta(imagem, (x, y), escala=tam_carta, id=nome)
-            cartas.append(carta)
-            idx += 1
+        x = start_x + coluna * (tam_carta[0] + espaco)
+        y = start_y + linha  * (tam_carta[1] + espaco)
+
+        cartas.append(Carta(imagem, (x, y), escala=tam_carta, id=nome))
+
     return cartas
 
 def rodar_jogo(screen, clock):
     desafios = carregar_desafios()
-    nomes_cartas = [f for f in os.listdir(IMG_DIR) if f.endswith('.png')]
-    random.shuffle(nomes_cartas)
-    cartas = criar_cartas(nomes_cartas)
+    todas_imagens = [f for f in os.listdir(IMG_DIR) if f.endswith('.png')]
+    font = pygame.font.SysFont('couriernew', 28)
 
-    desafio_atual = random.choice(desafios)
-    frase_para_mostrar = desafio_atual['frase']
-    carta_correta_nome = desafio_atual['correta']
-
-    rodada_finalizada = False
-    tempo_rodada_finalizado = None
     player_wins = 0
-
-    font = pygame.font.SysFont('couriernew', 24)
     running = True
 
     while running:
-        screen.fill((22, 15, 41))
+        # — Escolhe desafio e monta 4 cartas —
+        desafio_atual     = random.choice(desafios)
+        frase_para_mostrar = desafio_atual['frase']
+        carta_correta_nome = desafio_atual['correta']
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+        # 3 distrações diferentes da correta
+        distracoes = random.sample([f for f in todas_imagens
+                                    if f != carta_correta_nome], 3)
+        nomes_cartas_round = [carta_correta_nome] + distracoes
+        random.shuffle(nomes_cartas_round)
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and not rodada_finalizada:
-                for carta in cartas:
-                    if carta.colidiu_com_ponto(event.pos):
-                        carta.selecionada = True
-                        rodada_finalizada = True
-                        tempo_rodada_finalizado = pygame.time.get_ticks()
-                        if carta.id == carta_correta_nome:
-                            carta.resultado = "correta"
-                            hit_sound.play()
-                            player_wins += 1
-                        else:
-                            carta.resultado = "errada"
-                            for c in cartas:
-                                if c.id == carta_correta_nome:
-                                    c.resultado = "correta"
+        cartas = criar_cartas(nomes_cartas_round)
 
-            if rodada_finalizada and tempo_rodada_finalizado is not None:
-                segundos_passados = (pygame.time.get_ticks() - tempo_rodada_finalizado) / 1000
-                if segundos_passados >= 1:
-                    rodada_finalizada = False
+        rodada_finalizada = False
+        tempo_rodada_finalizado = None
+
+        # ----- loop principal da rodada -----
+        while True:
+            screen.fill((250,250,255))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    break
+
+                elif (event.type == pygame.MOUSEBUTTONDOWN
+                      and not rodada_finalizada):
                     for carta in cartas:
-                        carta.selecionada = False
-                        carta.resultado = None
+                        if carta.colidiu_com_ponto(event.pos):
+                            carta.selecionada = True
+                            rodada_finalizada = True
+                            tempo_rodada_finalizado = pygame.time.get_ticks()
 
-                    desafio_atual = random.choice(desafios)
-                    frase_para_mostrar = desafio_atual['frase']
-                    carta_correta_nome = desafio_atual['correta']
+                            if carta.id == carta_correta_nome:
+                                carta.resultado = "correta"
+                                hit_sound.play()
+                                player_wins += 1
+                            else:
+                                carta.resultado = "errada"
+                                for c in cartas:
+                                    if c.id == carta_correta_nome:
+                                        c.resultado = "correta"
+                            break
 
-                    random.shuffle(nomes_cartas)
-                    cartas = criar_cartas(nomes_cartas)
+            # Sai do laço interno quando for hora da próxima rodada
+            if not running:
+                break
+            if (rodada_finalizada
+                and (pygame.time.get_ticks() - tempo_rodada_finalizado) > 1000):
+                break   # próxima rodada
 
-        texto_render = font.render(frase_para_mostrar, True, (255, 255, 255))
-        texto_rect = texto_render.get_rect(center=(1280 // 2, 40))
-        screen.blit(texto_render, texto_rect)
+            # Desenha textos, cartas e botão:
+            texto_render = font.render(frase_para_mostrar, True, 'black')
+            screen.blit(texto_render,
+                        texto_render.get_rect(center=(640,40)))
 
-        vitorias_render = font.render(f"Vitórias: {player_wins}", True, (255, 255, 255))
-        screen.blit(vitorias_render, (10, 680))
+            vitorias_render = font.render(f"Vitórias: {player_wins}",
+                                          True, 'black')
+            screen.blit(vitorias_render, (10,680))
 
-        for carta in cartas:
-            carta.desenhar(screen)
+            for carta in cartas:
+                carta.desenhar(screen)
 
-        if desenhar_botao_voltar(screen, font):
-            return 'voltar_menu'
+            if desenhar_botao_voltar(screen, pygame.font.SysFont('couriernew', 20 )):
+                return 'voltar_menu'
 
-        pygame.display.flip()
-        clock.tick(60)
+            pygame.display.flip()
+            clock.tick(60)
 
-    return 'sair' 
+    return 'sair'
 

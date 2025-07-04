@@ -4,7 +4,7 @@ import menu
 import game
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((1280, 720), (pygame.RESIZABLE | pygame.SCALED))
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('arial', 24)
 

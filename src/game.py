@@ -2,6 +2,7 @@ import os
 import random
 import pygame
 import math
+import settings
 from card import Carta
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -15,7 +16,7 @@ def desenhar_botao_voltar(screen, font):
     botao_cor_hover = (255, 80, 80)
     texto_cor = (255, 255, 255)
 
-    botao_rect = pygame.Rect(1180, 20, 80, 40)  # posição fixa no canto superior direito
+    botao_rect = pygame.Rect(1180, 665, 90, 50)  # posição fixa no canto superior direito
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_clicado = pygame.mouse.get_pressed()[0]
@@ -39,6 +40,10 @@ def desenhar_botao_voltar(screen, font):
 
 pygame.mixer.init()
 hit_sound = pygame.mixer.Sound(os.path.join(SOUND_DIR, 'acerto.wav'))
+
+def play(sound):
+    if settings.sound_on:
+        sound.play()
 
 tam_carta = (179, 256)
 linhas = 2
@@ -70,7 +75,7 @@ def criar_cartas(nomes_cartas):
     altura_grade = linhas * tam_carta[1] + (linhas - 1) * espaco
 
     start_x = (1280 - largura_grade) // 2
-    start_y = (720 - altura_grade) // 2
+    start_y = ((720 - altura_grade) // 2) + 40
 
     cartas = []
 
@@ -93,7 +98,7 @@ def criar_cartas(nomes_cartas):
 def rodar_jogo(screen, clock):
     desafios = carregar_desafios()
     todas_imagens = [f for f in os.listdir(IMG_DIR) if f.endswith('.png')]
-    font = pygame.font.SysFont('couriernew', 28)
+    font = pygame.font.SysFont('couriernew', 34)
 
     player_wins = 0
     running = True
@@ -117,7 +122,7 @@ def rodar_jogo(screen, clock):
 
         # ----- loop principal da rodada -----
         while True:
-            screen.fill((250,250,255))
+            screen.fill((163, 177, 138))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -133,7 +138,7 @@ def rodar_jogo(screen, clock):
 
                             if carta.id == carta_correta_nome:
                                 carta.resultado = "correta"
-                                hit_sound.play()
+                                play(hit_sound)
                                 player_wins += 1
                             else:
                                 carta.resultado = "errada"

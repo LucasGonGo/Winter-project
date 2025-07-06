@@ -1,0 +1,38 @@
+Qual bandeira tem uma esfera azul no centro;brasil.png
+Descubra quem coaxa e mora na beira do brejo;sapo.png
+Qual item o médico usa para ouvir seu coracao?;estetoscopio.png
+Qual é o bicho com o bico chato e pés de nadadeira?;pato.png
+Qual objeto serve para sentar e relaxar depois do dia?;sofa.png
+Encontre a bandeira vermelha com uma estrela amarela no centro;china.png
+Procure quem brilha no céu mesmo sem fazer barulho;estrela.png
+Encontre a estátua gigante que abraça o Rio de Janeiro;cristo_redentor.png
+Encontre o animal que adora nadar e faz 'quack';pato.png
+Qual é a flor que sorri em amarelo no campo?;flor.png
+Encontre o que faz espuma e deixa tudo limpo;sabao.png
+Descubra a bandeira com listras vermelhas e estrelas brancas;estados_unidos.png
+Descubra o que enxuga após o banho;toalha.png
+Descubra o que o pintor usa para espalhar tinta;pincel.png
+Encontre o item usado no jogo que não pode cair no chao;bola_volei.png
+Encontre a flor que parece sorrir com pétalas douradas;flor.png
+Descubra a bola que quica forte na quadra e é laranja;bola_basquete.png
+Encontre o que usamos para correr e andar;perna.png
+Qual parte do corpo usamos para ouvir?;orelha.png
+Descubra quem vive no lago e sempre está bicando tudo;pato.png
+Encontre aquilo onde você dorme toda noite;cama.png
+Procure pela planta que brilha como o sol;flor.png
+Descubra o palácio branco que é orgulho da India;taj_mahal.png
+Qual item usamos para escovar os dentes?;escova.png
+Encontre o time do urubu com vermelho e preto;flamengo.png
+Descubra o alviverde imponente de São Paulo;palmeiras.png
+Encontre o que o pedreiro coloca na cabeça por seguranca;capacete.png
+Procure o clube gaúcho conhecido como Imortal Tricolor;gremio.png
+Qual é o verde saltitante que adora pular na lama?;sapo.png
+Procure o rival do Grêmio com alma vermelha;internacional.png
+Qual a figura tem cinco pontas e vive entre planetas?;estrela.png
+Qual time carioca tem uma estrela solitária;botafogo.png
+Qual torre de ferro é símbolo da Franca?;torre_eiffel.png
+Qual comida redonda, com queijo e molho, vem da Itália?;pizza.png
+Descubra o doce gelado que refresca o verão;sorvete.png
+Qual objeto é usado para marcar gols?;bola_futebol.png
+Encontre o bicho que tem a língua comprida e olhos esbugalhados;sapo.png
+Descubra o que ilumina o quarto com um clique;lampada.png

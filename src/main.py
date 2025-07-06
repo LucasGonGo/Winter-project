@@ -2,9 +2,12 @@ import pygame
 import sys
 import menu
 import game
+import options
+import settings
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720), (pygame.RESIZABLE | pygame.SCALED))
+pygame.display.set_caption('')
+screen = pygame.display.set_mode((1280, 720), (pygame.FULLSCREEN))
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('arial', 24)
 
@@ -14,7 +17,7 @@ while True:
     if estado == 'menu':
         rodando_menu = True
         while rodando_menu:
-            screen.fill((250, 250, 255))
+            screen.fill((163, 177, 138))
             botoes = menu.mostrar_menu(screen)
 
             for event in pygame.event.get():
@@ -27,6 +30,8 @@ while True:
                             if i == 0:
                                 rodando_menu = False
                                 estado = 'jogo'
+                            elif i == 1:
+                                options.mostrar_opcoes(screen, clock, font)
                             elif i == 2:
                                 pygame.quit()
                                 exit()
@@ -41,3 +46,4 @@ while True:
         else:
             pygame.quit()
             exit()
+    

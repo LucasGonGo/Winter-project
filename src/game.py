@@ -4,12 +4,11 @@ import pygame
 import math
 import settings
 from card import Carta
+from utils import resource_path
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-ASSET_DIR = os.path.join(BASE_DIR, 'assets')
-IMG_DIR = os.path.join(ASSET_DIR, 'images')
-DATA_DIR = os.path.join(ASSET_DIR, 'data')
-SOUND_DIR = os.path.join(ASSET_DIR, 'sounds')
+SOUND_DIR = resource_path(os.path.join('assets', 'sounds'))
+IMG_DIR   = resource_path(os.path.join('assets', 'images'))
+DATA_DIR  = resource_path(os.path.join('assets', 'data'))
 
 def desenhar_botao_voltar(screen, font):
     botao_cor = (200, 50, 50) 

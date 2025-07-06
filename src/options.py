@@ -1,4 +1,4 @@
-import pygame, settings
+import pygame, settings, sys
 
 def mostrar_opcoes(screen, clock, fonte):
     largura_tela, altura_tela = screen.get_size()
@@ -32,7 +32,7 @@ def mostrar_opcoes(screen, clock, fonte):
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                pygame.quit(); exit()
+                pygame.quit(); sys.exit()
             if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                 if botao_som.collidepoint(e.pos):
                     settings.sound_on = not settings.sound_on

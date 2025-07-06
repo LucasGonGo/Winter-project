@@ -23,7 +23,7 @@ while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     for i, botao in enumerate(botoes):
                         if botao.collidepoint(event.pos):
@@ -34,7 +34,7 @@ while True:
                                 options.mostrar_opcoes(screen, clock, font)
                             elif i == 2:
                                 pygame.quit()
-                                exit()
+                                sys.exit()
 
             pygame.display.flip()
             clock.tick(60)
@@ -45,5 +45,5 @@ while True:
             estado = 'menu'
         else:
             pygame.quit()
-            exit()
+            sys.exit()
     

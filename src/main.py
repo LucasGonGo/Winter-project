@@ -6,7 +6,7 @@ import options
 import settings
 
 pygame.init()
-pygame.display.set_caption('')
+pygame.display.set_caption('Jogo de escolhas')
 screen = pygame.display.set_mode((1280, 720), (pygame.FULLSCREEN))
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('arial', 24)
